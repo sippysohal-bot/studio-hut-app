@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { Page, PageMobileNavigation, PageNavigation } from '@kit/ui/page';
 import { SidebarProvider } from '@kit/ui/sidebar';
 
