@@ -18,11 +18,11 @@ export default function PaymentsPage() {
   const [requests, setRequests] = useState<PaymentRequest[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const supabase = createBrowserClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  );
+  // ✅ ਨਵਾਂ code:
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co';
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'dummy-anon-key-for-build';
 
+const supabase = createBrowserClient(supabaseUrl, supabaseAnonKey);
   const fetchPaymentRequests = async () => {
     setLoading(true);
     const { data: { user } } = await supabase.auth.getUser();
