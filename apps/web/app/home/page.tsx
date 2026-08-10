@@ -37,10 +37,10 @@ export default function StudioDashboardPage() {
   const [nameInputs, setNameInputs] = useState<Record<string, string>>({});
   const [phoneInputs, setPhoneInputs] = useState<Record<string, string>>({});
 
-  const supabase = createBrowserClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  );
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co';
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'dummy-anon-key-for-build';
+
+const supabase = createBrowserClient(supabaseUrl, supabaseAnonKey);;
 
   // Auto-load saved Studio Name from LocalStorage
   useEffect(() => {
