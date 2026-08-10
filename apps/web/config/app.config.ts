@@ -58,15 +58,17 @@ const AppConfigSchema = z
       path: ['themeColor'],
     },
   );
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://studio-hut.vercel.app';
+const validUrl = siteUrl.startsWith('http') ? siteUrl : `https://${siteUrl}`;
 
 const appConfig = AppConfigSchema.parse({
   name: 'Studio Hut',
   title: 'Studio Hut',
   description: process.env.NEXT_PUBLIC_SITE_DESCRIPTION || 'Studio Hut App',
-  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://studio-hut.vercel.app',
+  url: validUrl,
   locale: process.env.NEXT_PUBLIC_DEFAULT_LOCALE || 'en',
   theme: process.env.NEXT_PUBLIC_DEFAULT_THEME_MODE || 'light',
   themeColor: process.env.NEXT_PUBLIC_THEME_COLOR || '#ffffff',
   themeColorDark: process.env.NEXT_PUBLIC_THEME_COLOR_DARK || '#000000',
   production,
-});export default appConfig;
+});
