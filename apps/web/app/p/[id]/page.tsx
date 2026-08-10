@@ -25,11 +25,10 @@ export default function PublicUnlockPage() {
   const [utr, setUtr] = useState('');
   const [submitting, setSubmitting] = useState(false);
 
-  const supabase = createBrowserClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  );
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co';
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'dummy-anon-key-for-build';
 
+  const supabase = createBrowserClient(supabaseUrl, supabaseAnonKey);
   useEffect(() => {
     if (!id) return;
 
