@@ -2,11 +2,11 @@
 
 interface UpiQrCodeProps {
   upiId: string;
-  name: string;
+  name?: string;
   amount: number;
 }
 
-export function UpiQrCode({ upiId, name, amount }: UpiQrCodeProps) {
+export function UpiQrCode({ upiId, name = '', amount }: UpiQrCodeProps) {
   // UPI Deep Link Format
   const upiUrl = `upi://pay?pa=${encodeURIComponent(upiId)}&pn=${encodeURIComponent(name)}&am=${amount}&cu=INR`;
   

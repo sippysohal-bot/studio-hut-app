@@ -99,7 +99,7 @@ function UnlockContent() {
       {linkData.upi_id && (
         <div className="mb-6 flex flex-col items-center justify-center rounded-lg border p-4 bg-white">
           <p className="mb-2 font-medium">Scan QR to Pay:</p>
-          <UpiQrCode upiId={linkData.upi_id} amount={linkData.price} />
+          <UpiQrCode upiId={linkData.upi_id} name={linkData.studio_name} amount={linkData.price} />
         </div>
       )}
 
