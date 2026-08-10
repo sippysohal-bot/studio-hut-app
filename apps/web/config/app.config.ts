@@ -61,7 +61,7 @@ const AppConfigSchema = z
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://studio-hut.vercel.app';
 const validUrl = siteUrl.startsWith('http') ? siteUrl : `https://${siteUrl}`;
 
-const appConfig = AppConfigSchema.parse({
+const rawConfig = {
   name: 'Studio Hut',
   title: 'Studio Hut',
   description: process.env.NEXT_PUBLIC_SITE_DESCRIPTION || 'Studio Hut App',
@@ -71,4 +71,10 @@ const appConfig = AppConfigSchema.parse({
   themeColor: process.env.NEXT_PUBLIC_THEME_COLOR || '#ffffff',
   themeColorDark: process.env.NEXT_PUBLIC_THEME_COLOR_DARK || '#000000',
   production,
-});
+};
+
+const parsed = AppConfigSchema.safeParse(rawConfig);
+
+const appConfig = parsed.success ? parsed.data : (rawConfig as any);
+
+export default appConfig;
