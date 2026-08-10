@@ -60,8 +60,8 @@ const AppConfigSchema = z
   );
 
 const appConfig = AppConfigSchema.parse({
-  name: 'Studio Hut', // 👈 ਇੱਥੇ ਡਾਇਰੈਕਟ Studio Hut ਲਿਖ ਦਿਓ
-  title: 'Studio Hut', // 👈 ਇੱਥੇ ਵੀ Studio Hut ਲਿਖ ਦਿਓ
+  name: 'Studio Hut',
+  title: 'Studio Hut', 
   description: process.env.NEXT_PUBLIC_SITE_DESCRIPTION,
   url: process.env.NEXT_PUBLIC_SITE_URL,
   locale: process.env.NEXT_PUBLIC_DEFAULT_LOCALE,
