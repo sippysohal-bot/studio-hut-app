@@ -1,17 +1,17 @@
-import { redirect } from 'next/navigation';
-import type { NextRequest } from 'next/server';
+import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
+import { cookies } from 'next/headers';
+import { NextResponse } from 'next/server';
 
-import { createAuthCallbackService } from '@kit/supabase/auth';
-import { getSupabaseServerClient } from '@kit/supabase/server-client';
+export async function GET(request: Request) {
+  const requestUrl = new URL(request.url);
+  const code = requestUrl.searchParams.get('code');
 
-import pathsConfig from '~/config/paths.config';
+  if (code) {
+    const cookieStore = cookies();
+    const supabase = createRouteHandlerClient({ cookies: () => cookieStore });
+    await supabase.auth.exchangeCodeForSession(code);
+  }
 
-export async function GET(request: NextRequest) {
-  const service = createAuthCallbackService(getSupabaseServerClient());
-
-  const { nextPath } = await service.exchangeCodeForSession(request, {
-    redirectPath: pathsConfig.app.home,
-  });
-
-  return redirect(nextPath);
+  // Auth ਪੂਰਾ ਹੋਣ ਤੋਂ ਬਾਅਦ ਸਿੱਧਾ ਡੈਸ਼ਬੋਰਡ / ਹੋਮ ਪੇਜ 'ਤੇ ਰੀਡਾਇਰੈਕਟ ਕਰੋ
+  return NextResponse.redirect(requestUrl.origin);
 }
