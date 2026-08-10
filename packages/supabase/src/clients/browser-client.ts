@@ -1,14 +1,8 @@
-import { createBrowserClient } from '@supabase/ssr';
+import { createBrowserClient as createSupabaseBrowserClient } from '@supabase/ssr';
 
-import { Database } from '../database.types';
-import { getSupabaseClientKeys } from '../get-supabase-client-keys';
+export function createBrowserClient() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co';
+  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'dummy-anon-key-for-build';
 
-/**
- * @name getSupabaseBrowserClient
- * @description Get a Supabase client for use in the Browser
- */
-export function getSupabaseBrowserClient<GenericSchema = Database>() {
-  const keys = getSupabaseClientKeys();
-
-  return createBrowserClient<GenericSchema>(keys.url, keys.anonKey);
+  return createSupabaseBrowserClient(url, anonKey);
 }
